@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="alikhver">
+        <sql>
+            create database if not exists personnel_management;
+        </sql>
+    </changeSet>
+    <changeSet id="2" author="alikhver">
+        <sql>
+            create table if not exists personnel_management.T_DEPARTMENT (
+            D_ID int primary key auto_increment,
+            D_FOUNDATION_DATE date,
+            D_DESC varchar(255),
+            D_NAME varchar(255),
+            D_PHONE varchar(255));
+        </sql>
+    </changeSet>
+    <changeSet id="3" author="alikhver">
+        <sql>
+            create table if not exists personnel_management.T_EMPLOYEE (
+            E_ID varchar(255) primary key,
+            E_BIRTH_DATE date,
+            E_HIRING_DATE date,
+            E_MAIL varchar(255),
+            E_PHONE varchar(255),
+            E_NAME varchar(255),
+            E_MIDDLE_NAME varchar(255),
+            E_SURNAME varchar(255),
+            E_POSITION varchar(255),
+            D_ID int,
+            constraint FK_T_DEPARTMENT
+            foreign key (D_ID) references personnel_management.T_DEPARTMENT (D_ID));
+        </sql>
+    </changeSet>
+    <changeSet id="4" author="alikhver">
+        <sql>
+            insert into personnel_management.T_DEPARTMENT (D_FOUNDATION_DATE, D_NAME, D_DESC, D_PHONE) values
+            ('2012-12-12', 'Sales', 'Market Research, Advertising, Sales Correspondence', '+375178765543'),
+            ('2011-11-11', 'IT', 'Development, Technical Support, Network Management', '+375445285443'),
+            ('2010-10-10', 'Management', 'Management, Review, Supervising', '+375442398765');
+
+        </sql>
+    </changeSet>
+    <changeSet id="5" author="alikhver">
+        <sql>
+            insert into T_EMPLOYEE (E_ID, E_BIRTH_DATE, E_HIRING_DATE, E_MAIL, E_SURNAME, E_MIDDLE_NAME, E_NAME,
+            E_PHONE, E_POSITION, D_ID)
+            values
+            ('d6631439-dee0-4e35-b89c-0b94339acba4', '1978-12-12', '2011-04-04', 'deWitt@gmail.com', 'DeWitt', 'Anna',
+            'Elizabeth', '+7056343489', 'SEO specialist', 1),
+            ('b2940061-c518-404d-9bc9-1ae1cb6f06e3', '1988-07-23', '2015-07-09', 'jo3lM1ller@yandex.com', 'Miller',
+            'Peter', 'Joel', '+7658912120', 'Team Lead', 2),
+            ('c861e865-560e-4c24-93c7-2f6b48475077', '1995-06-01', '2018-08-09', 'martinBohler@yahoo@gmail.com',
+            'Bohler', 'Reinhard', 'Martin', '+2345346453', 'CEO', 3)
+            ;
+
+            insert into T_EMPLOYEE (E_ID, E_BIRTH_DATE, E_HIRING_DATE, E_MAIL, E_SURNAME, E_MIDDLE_NAME, E_NAME,
+            E_PHONE, E_POSITION)
+            values
+            ('32f50711-5ab9-4e37-9c2a-b400cedfa88a', '1986-12-12', '2010-02-03', 'ElizabethComstock@gmail.com', 'Comstock', 'Serena',
+            'Elizabeth', '+7230928364', 'Security Guard'),
+            ('bd659584-bb14-4efe-a2a4-79223599b1eb', '1987-07-23', '2014-06-08', 'ceppAvory@yahoo@gmail.com', 'Sepp',
+            'Martin', 'Avory', '+23948576390', 'Cleaner'),
+            ('63f8d71e-d9fc-4361-886e-d583501cb16c', '1966-06-01', '2019-09-10', 'greg0ry@gmail.com', 'Gregory',
+            'Valentine', 'John', '+6383057363', 'Security Guard')
+            ;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

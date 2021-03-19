@@ -1,6 +1,5 @@
 package com.alikhver.rest;
 
-import com.alikhver.response.BadResponse;
 import com.alikhver.model.Department;
 import com.alikhver.model.Employee;
 import com.alikhver.service.DepartmentService;
@@ -38,37 +37,37 @@ public class DepartmentRestService {
 
     @DeleteMapping(value = "/{departmentId}")
     @ApiOperation(value = "Remove department with specified Id")
-    public ResponseEntity deleteDepartment(@PathVariable Integer departmentId) throws NotFoundException {
+    public ResponseEntity<HttpStatus> deleteDepartment(@PathVariable Integer departmentId) throws NotFoundException {
         departmentService.deleteDepartment(departmentId);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping(value = "/")
     @ApiOperation("Create department")
-    public ResponseEntity createDepartment(@RequestBody Department department) throws IllegalArgumentException {
+    public ResponseEntity<HttpStatus> createDepartment(@RequestBody Department department) throws IllegalArgumentException {
         departmentService.createDepartment(department);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/manageEmployees/{departmentId}")
     @ApiOperation("Add employee to department specified")
-    public ResponseEntity addEmployee(@PathVariable int departmentId, @RequestBody String employeeId) throws NotFoundException {
+    public ResponseEntity<HttpStatus> addEmployee(@PathVariable int departmentId, @RequestBody String employeeId) throws NotFoundException {
         departmentService.addEmployee(departmentId, employeeId);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/manageEmployees/{employeeId}")
     @ApiOperation("Delete employee from department")
-    public ResponseEntity deleteEmployeeFromDepartment(@PathVariable String employeeId) throws NotFoundException {
+    public ResponseEntity<HttpStatus> deleteEmployeeFromDepartment(@PathVariable String employeeId) throws NotFoundException {
         departmentService.deleteEmployeeFromDepartment(employeeId);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/manageEmployees/{departmentId}")
     @ApiOperation("Get all Employees from department specified")
     public ResponseEntity<List<Employee>> getAllEmployeesOfDepartment(@PathVariable Integer departmentId) throws NotFoundException {
         List<Employee> employees = departmentService.getAllEmployeesOfDepartment(departmentId);
-        return new ResponseEntity(employees, HttpStatus.OK);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
 }

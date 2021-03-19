@@ -57,7 +57,7 @@ public class DepartmentService {
     @Transactional
     public void addEmployee(int departmentId, String employeeId) throws NotFoundException {
         Employee employee = employeeDao.getEmployee(employeeId);
-        if (employee.getId().isEmpty()) {
+        if (employee == null) {
             throw new NotFoundException("No employee with Id=" + employeeId + " found");
         }
         Department department = departmentDao.getDepartment(departmentId);
@@ -68,7 +68,7 @@ public class DepartmentService {
     @Transactional
     public void deleteEmployeeFromDepartment(String employeeId) throws NotFoundException {
         Employee employee = employeeDao.getEmployee(employeeId);
-        if (employee.getId().isEmpty()) {
+        if (employee == null) {
             throw new NotFoundException("No employee with Id=" + employeeId + " found");
         }
         employee.setDepartment(null);

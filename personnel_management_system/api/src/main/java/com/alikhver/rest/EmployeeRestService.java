@@ -1,7 +1,6 @@
 package com.alikhver.rest;
 
 import com.alikhver.model.Employee;
-import com.alikhver.response.BadResponse;
 import com.alikhver.service.EmployeeService;
 import io.swagger.annotations.ApiOperation;
 import javassist.NotFoundException;
@@ -26,7 +25,7 @@ public class EmployeeRestService {
     @ApiOperation("Get employee with Id specified")
     public ResponseEntity<Employee> getEmployee(@PathVariable String id) throws NotFoundException {
         final Employee employee = employeeService.getEmployee(id);
-        return new ResponseEntity(employee, HttpStatus.OK);
+        return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
     @GetMapping(value = "/")
@@ -38,16 +37,16 @@ public class EmployeeRestService {
 
     @DeleteMapping(value = "/{id}")
     @ApiOperation("Delete employee with Id specified")
-    public ResponseEntity deleteEmployee(@PathVariable String id) throws NotFoundException {
+    public ResponseEntity<HttpStatus> deleteEmployee(@PathVariable String id) throws NotFoundException {
         employeeService.deleteEmployee(id);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping(value = "/")
     @ApiOperation("Create employee")
     public ResponseEntity<String> createEmployee(@RequestBody Employee employee) throws IllegalArgumentException {
         employeeService.createEmployee(employee);
-        return new ResponseEntity(employee.getId(), HttpStatus.CREATED);
+        return new ResponseEntity<>(employee.getId(), HttpStatus.CREATED);
     }
 
 }

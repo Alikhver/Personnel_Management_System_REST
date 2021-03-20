@@ -1,0 +1,5 @@
+# Project exclude paths
+/api/target/
+/data/target/
+/model/target/
+/service/target/

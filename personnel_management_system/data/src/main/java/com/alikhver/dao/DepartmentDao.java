@@ -12,7 +12,7 @@ public interface DepartmentDao {
 
     void deleteDepartment(int id);
 
-    String createDepartment(Department department);
+    void createDepartment(Department department);
 
     void deleteEmployeeFromDepartment(String employeeId);
 }

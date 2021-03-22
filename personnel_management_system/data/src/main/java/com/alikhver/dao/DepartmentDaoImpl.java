@@ -5,7 +5,6 @@ import com.alikhver.model.Employee;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Repository
@@ -34,9 +33,8 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public String createDepartment(Department department) {
-        Serializable save = sessionFactory.getCurrentSession().save(department);
-        return String.valueOf(save);
+    public void createDepartment(Department department) {
+        sessionFactory.getCurrentSession().save(department);
     }
 
     @Override

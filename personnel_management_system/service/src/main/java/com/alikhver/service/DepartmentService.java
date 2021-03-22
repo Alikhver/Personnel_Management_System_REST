@@ -6,7 +6,6 @@ import com.alikhver.dao.EmployeeDao;
 import com.alikhver.model.Department;
 import com.alikhver.model.Employee;
 import javassist.NotFoundException;
-import org.hibernate.annotations.NotFound;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,11 +46,11 @@ public class DepartmentService {
     }
 
     @Transactional
-    public String createDepartment(Department department) throws IllegalArgumentException {
+    public void createDepartment(Department department) throws IllegalArgumentException {
         if (department == null) {
             throw new IllegalArgumentException("Illegal argument");
         }
-        return departmentDao.createDepartment(department);
+        departmentDao.createDepartment(department);
     }
 
     @Transactional

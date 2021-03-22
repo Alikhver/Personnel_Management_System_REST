@@ -35,7 +35,7 @@ public class Department {
     private String description;
 
 
-    @OneToMany (mappedBy = "department", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Employee> employeeList;
 
 }

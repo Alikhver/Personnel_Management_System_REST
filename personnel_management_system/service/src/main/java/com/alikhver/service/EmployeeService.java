@@ -4,7 +4,6 @@ import com.alikhver.dao.EmployeeDao;
 import com.alikhver.model.Employee;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,7 +16,6 @@ public class EmployeeService {
         this.employeeDao = employeeDao;
     }
     
-    @Transactional(readOnly = true)
     public Employee getEmployee(String id) throws NotFoundException {
         Employee employee = employeeDao.getEmployee(id);
         if (employee == null) {
@@ -26,7 +24,6 @@ public class EmployeeService {
         return employee;
     }
 
-    @Transactional
     public void createEmployee(Employee employee) throws IllegalArgumentException {
         if (employee == null) {
             throw new IllegalArgumentException("Illegal argument");
@@ -34,7 +31,6 @@ public class EmployeeService {
         employeeDao.save(employee);
     }
 
-    @Transactional
     public void deleteEmployee(String id) throws NotFoundException {
         Employee employee = employeeDao.getEmployee(id);
         if (employee == null) {
@@ -43,7 +39,6 @@ public class EmployeeService {
         employeeDao.deleteEmployee(id);
     }
 
-    @Transactional(readOnly = true)
     public List<Employee> getAllEmployeeWithoutDepartment() {
         return employeeDao.getAllEmployeeWithoutDepartment();
     }

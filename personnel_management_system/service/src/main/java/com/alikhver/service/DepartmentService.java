@@ -7,7 +7,6 @@ import com.alikhver.model.Department;
 import com.alikhver.model.Employee;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,7 +22,6 @@ public class DepartmentService {
         this.employeeDao = employeeDao;
     }
 
-    @Transactional(readOnly = true)
     public Department getDepartment(Integer id) throws NotFoundException {
         final Department department = departmentDao.getDepartment(id);
         if (department == null) {
@@ -32,12 +30,10 @@ public class DepartmentService {
         return department;
     }
 
-    @Transactional(readOnly = true)
     public List<Department> getAllDepartments() {
         return departmentDao.getAllDepartments();
     }
 
-    @Transactional
     public void deleteDepartment(int id) throws IllegalArgumentException, NotFoundException {
         Department department = this.getDepartment(id);
         department.getEmployeeList().
@@ -45,7 +41,6 @@ public class DepartmentService {
         departmentDao.deleteDepartment(id);
     }
 
-    @Transactional
     public void createDepartment(Department department) throws IllegalArgumentException {
         if (department == null) {
             throw new IllegalArgumentException("Illegal argument");
@@ -53,7 +48,6 @@ public class DepartmentService {
         departmentDao.createDepartment(department);
     }
 
-    @Transactional
     public void addEmployee(int departmentId, String employeeId) throws NotFoundException {
         Employee employee = employeeDao.getEmployee(employeeId);
         if (employee == null) {
@@ -64,7 +58,6 @@ public class DepartmentService {
         employeeDao.save(employee);
     }
 
-    @Transactional
     public void deleteEmployeeFromDepartment(String employeeId) throws NotFoundException {
         Employee employee = employeeDao.getEmployee(employeeId);
         if (employee == null) {
@@ -74,7 +67,6 @@ public class DepartmentService {
         employeeDao.save(employee);
     }
 
-    @Transactional(readOnly = true)
     public List<Employee> getAllEmployeesOfDepartment(Integer departmentId) throws NotFoundException {
         Department department;
         department = departmentDao.getDepartment(departmentId);

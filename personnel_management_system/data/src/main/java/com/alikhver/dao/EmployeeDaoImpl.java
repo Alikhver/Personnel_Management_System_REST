@@ -4,6 +4,7 @@ package com.alikhver.dao;
 import com.alikhver.model.Employee;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Employee> getAllEmployeeWithoutDepartment() {
         return sessionFactory
                 .getCurrentSession()
@@ -25,17 +27,20 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
+    @Transactional
     public void save(Employee employee) {
        sessionFactory.getCurrentSession().save(employee);
     }
 
     @Override
+    @Transactional
     public void deleteEmployee(String id) {
         Employee employee = sessionFactory.getCurrentSession().get(Employee.class, id);
         sessionFactory.getCurrentSession().delete(employee);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Employee getEmployee(String id) {
         return sessionFactory.getCurrentSession().get(Employee.class, id);
     }

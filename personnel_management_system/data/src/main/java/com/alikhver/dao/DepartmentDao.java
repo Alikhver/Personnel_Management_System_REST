@@ -2,6 +2,7 @@ package com.alikhver.dao;
 
 
 import com.alikhver.model.Department;
+import javassist.NotFoundException;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface DepartmentDao {
 
     Department getDepartment(int id);
 
-    void deleteDepartment(int id);
+    void deleteDepartment(int id) throws NotFoundException;
 
     void createDepartment(Department department);
 
